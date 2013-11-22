@@ -35,6 +35,8 @@ class Trader
           type: 'sell'
           amount: amount
         ,cb
+      plot: (series)->
+        # do nothing
       sendEmail: (text)->
         logger.verbose 'Sending e-mail '+text
         # @TODO add send email functionality

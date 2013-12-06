@@ -23,17 +23,18 @@ class CEXIOPlatform extends Platform
     self = @
     amount = (order.amount or order.maxAmount) * 0.995
     amount = parseFloat amount.toFixed(8)
+    price = parseFloat order.price.toFixed(8)
     switch order.type
       when 'buy'
         attempt {retries:@config.max_retries,interval:@config.retry_interval*1000},
           ->
-            self.client.place_order 'buy', amount, order.price, @
+            self.client.place_order 'buy', amount, price, @
           ,orderCb
         break
       when 'sell'
         attempt {retries:@config.max_retries,interval:@config.retry_interval*1000},
           ->
-            self.client.place_order 'sell', amount, order.price, @
+            self.client.place_order 'sell', amount, price, @
           ,orderCb
         break
   isOrderActive: (orderId, cb)->

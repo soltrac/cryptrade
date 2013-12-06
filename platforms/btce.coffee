@@ -32,10 +32,11 @@ class Platform
       return
     amount = order.amount or order.maxAmount
     amount = Math.floor(amount * 100000000) / 100000000
+    price = Math.floor(order.price * 100000000) / 100000000
     self = @
     attempt {retries:@config.max_retries,interval:@config.retry_interval*1000},
       ->
-        self.client.trade self.pair, order.type, order.price, amount, @
+        self.client.trade self.pair, order.type, price, amount, @
       ,orderCb
       
 

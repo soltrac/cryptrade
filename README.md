@@ -26,8 +26,7 @@ popular exchanges such as MtGox,Bitstamp and BTC-E.
         cd cryptrade
         npm install
 
-  - Open keys.cson and put your API keys of the exchanges you want to trade on. 
-    *Private keys are never sent to the server*
+  - Open keys.cson and put your API keys of the exchanges you want to trade on. *Private keys are never sent to the server.* If after installation keys.cson file doesn't exist, then something went wrong during the installation and you need to check the logs. 
   
 ## Usage
   To start trading bot, just type

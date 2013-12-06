@@ -54,7 +54,7 @@ class Platform
         if err?
           cb "isOrderActive: reached max retries #{err}"
         else
-          cb null, orderId in result
+          cb null, orderId of result
         
     
   cancelOrder: (orderId, cb)->

@@ -22,7 +22,7 @@ popular exchanges such as MtGox,Bitstamp and BTC-E and CEX.IO.
 1.) For those who want an instant trading appliance, [this bot](https://github.com/pulsecat/cryptrade) can be downloaded in a complete ready made [Oracle VirtualBox](https://www.virtualbox.org/) virtual machine. 
   - That (independant) project is hosted on [SourceForge](https://sourceforge.net/projects/cryptotradervm/)
 
-2.) If you preffer to setup everything yourself, or would like to know how its done:
+2.) If you preffer to setup everything yourself, or if you would like to know more:
   - Make sure you have [Node](http://nodejs.org/) installed 
   - Install cryptrade tool
     

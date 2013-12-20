@@ -10,7 +10,7 @@ NodeJS trading client for Cryptotrader.org
 
 
 Cryptrade is a standalone client for Cryptotrader.org. The main purpose of this tool is to allow automated trading at 
-popular exchanges such as MtGox,Bitstamp and BTC-E.
+popular exchanges such as MtGox, Bitstamp, BTC-E and CEX.IO.
 
 ## Features
   - Support for 125+ [Talib](http://ta-lib.org/) indicators such as EMA, MACD, etc. 
@@ -19,6 +19,10 @@ popular exchanges such as MtGox,Bitstamp and BTC-E.
 
 ## Installation
 
+1.) For those who want an instant trading appliance, [this bot](https://github.com/pulsecat/cryptrade) can be downloaded in a complete ready made [Oracle VirtualBox](https://www.virtualbox.org/) virtual machine. 
+  - That (independant) project is hosted on [SourceForge](https://sourceforge.net/projects/cryptotradervm/)
+
+2.) If you preffer to setup everything yourself, or if you would like to know more:
   - Make sure you have [Node](http://nodejs.org/) installed 
   - Install cryptrade tool
     

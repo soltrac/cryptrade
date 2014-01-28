@@ -19,22 +19,24 @@ class Trader
         logger.info message
       warn: (message)->
         logger.info message
-      buy: (instrument,amount,cb)=>
+      buy: (instrument,amount,price,timeout)=>
         @trade
           asset: instrument.asset()
           curr: instrument.curr()
           platform: instrument.platform
           type: 'buy'
           amount: amount
-        ,cb
-      sell: (instrument,amount,cb)=>
+          price: price
+          timeout: timeout
+      sell: (instrument,amount,price,timeout)=>
         @trade
           asset: instrument.asset()
           curr: instrument.curr()
           platform: instrument.platform
           type: 'sell'
           amount: amount
-        ,cb
+          price: price
+          timeout: timeout
       plot: (series)->
         # do nothing
       sendEmail: (text)->
@@ -87,15 +89,17 @@ class Trader
     result += "#{cash} #{curr.toUpperCase()}"
     result
 
-  trade: (order,cb)->
+  trade: (order)->
     platform = order.platform
     switch order.type
       when 'buy'
-        order.price = @ticker.buy
+        order.price = order.price or @ticker.buy
+        order.priceTicker = @ticker.buy
         order.maxAmount = order.amount or @sandbox.portfolio.positions[order.curr].amount / order.price
         break
       when 'sell'
-        order.price = @ticker.sell
+        order.price = order.price or @ticker.sell
+        order.priceTicker = @ticker.sell
         order.maxAmount = order.amount or @sandbox.portfolio.positions[order.asset].amount
         break
     platform.trade order, (err,orderId)=>
@@ -113,8 +117,6 @@ class Trader
             balance = self.calcPositions [order.asset,order.curr]
             message = "#{order.type.toUpperCase()} order #{orderStr}traded. Balance: #{balance}"
             self.sandbox.info message
-            if cb?
-              cb()
       if orderId
         switch order.type
           when 'buy'
@@ -125,23 +127,19 @@ class Trader
             amount = order.amount or @sandbox.portfolio.positions[order.asset].amount
             logger.info "SELL order ##{orderId} amount: #{amount} #{order.asset.toUpperCase()} @ #{order.price}"
             break
+        timeout = order.timeout or @config.check_order_interval
         setTimeout =>
           platform.isOrderActive orderId,(err,active)=>
             if err?
               logger.error err
             if active
-              logger.info "Canceling order ##{orderId} as it was inactive for #{@config.check_order_interval} seconds."
+              logger.info "Canceling order ##{orderId} as it was inactive for #{timeout} seconds."
               platform.cancelOrder orderId, (err)=>
                 if err?
                   logger.error err
-                else
-                  logger.info "Creating new order.."
-                  @updateTicker platform,=>
-                    @updatePortfolio [order.asset,order.curr], order.platform,=>
-                      @trade order, cb
             else
               orderCb()
-        ,@config.check_order_interval*1000
+        ,timeout*1000
       else
         orderCb()
 

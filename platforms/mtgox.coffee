@@ -2,6 +2,7 @@ _ = require 'underscore'
 MtGoxClient = require 'mtgox-apiv2'
 Platform = require '../platform'
 attempt = require 'attempt'
+logger = require 'winston'
 
 class MtGoxPlatform extends Platform
   init: (@config,@pair,@account)->
@@ -28,22 +29,26 @@ class MtGoxPlatform extends Platform
     
   trade: (order, cb)->
     if order.maxAmount >= parseFloat(@config.min_order[order.asset])
-      amount = order.amount or 10000
+      amount = order.amount or 10000    
+      if order.price is order.priceTicker
+        price = null
+      else
+        price = order.price
       switch order.type
         when 'buy'
-          @createOrder 'bid',amount,cb
+          @createOrder 'bid',amount, price, cb
           break
         when 'sell'
-          @createOrder 'ask',amount,cb
+          @createOrder 'ask',amount, price, cb
           break
     else
       cb "#{order.type.toUpperCase()} order wasn't created because the amount is less than minimum order amount"
 
-  createOrder: (type, amount, cb)->
+  createOrder: (type, amount, price, cb)->
     self = @
     attempt {retries:@config.max_retries,interval:@config.retry_interval*1000},
       ->
-        self.client.add type, amount, null, @
+        self.client.add type, amount, price, @
       ,(err,result)->
         if err?
           cb "createOrder: reachange max retries #{err}"

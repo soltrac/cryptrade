@@ -1,3 +1,18 @@
+FORK
+------
+
+This is a FORK of original cryptrade project that got discontinued. I'm going to try to fix most of bugs original project has.
+
+
+Donations for the project:
+
+BTC: 1J3y3TQBdNGwKZDXWjybXEjJmRsqZYBo7R
+
+
+
+ORIGINAL README
+-----------------
+
 Obviously the thing to do was to be bullish in a bull market and bearish in a bear market.
 
 
@@ -19,14 +34,14 @@ popular exchanges such as MtGox, Bitstamp, BTC-E and CEX.IO.
 
 ## Installation
 
-1.) For those who want an instant trading appliance, [this bot](https://github.com/pulsecat/cryptrade) can be downloaded in a complete ready made [Oracle VirtualBox](https://www.virtualbox.org/) virtual machine. 
+1.) For those who want an instant trading appliance, [this bot](https://github.com/soltrac/cryptrade) can be downloaded in a complete ready made [Oracle VirtualBox](https://www.virtualbox.org/) virtual machine. 
   - That (independant) project is hosted on [SourceForge](https://sourceforge.net/projects/cryptotradervm/)
 
 2.) If you preffer to setup everything yourself, or if you would like to know more:
   - Make sure you have [Node](http://nodejs.org/) installed 
   - Install cryptrade tool
     
-        git clone https://github.com/pulsecat/cryptrade.git
+        git clone https://github.com/soltrac/cryptrade.git
         cd cryptrade
         npm install
 
